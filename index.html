@@ -446,8 +446,23 @@
     // إعداد Supabase
     // =========================
 
-    const SUPABASE_URL = 'https://orrmwdjebfawekoqbjrx.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_foc4DXyMgwjQ1JMM3kzrQA_ybbbia7X';
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+'https://orrmwdjebfawekoqbjrx.supabase.co';
+
+const SUPABASE_KEY =
+'sb_publishable_foc4DXyMgwjQ1JMM3kzrQA_ybbbia7X';
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+</script>
 
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -458,7 +473,11 @@
     async function uploadFile(file, subjectName) {
       if (!file) return;
 
-      const fileName = `${Date.now()}-${file.name}`;
+      const cleanName = file.name
+  .replace(/[^a-zA-Z0-9.]/g, "_");
+
+const fileName =
+  `${Date.now()}-${cleanName}`;
 
       const { data, error } = await supabaseClient.storage
         .from('school-files')
